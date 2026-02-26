@@ -1,5 +1,5 @@
 # MPI_Examples
-## Different versions to distribute (scatter data) using blocking, nonblocking, and collective functions
+## Different versions to distribute (scatter) data using blocking, nonblocking, and collective functions
 
 `sample1.c` - uses blocking send and recv (has a bug)
 

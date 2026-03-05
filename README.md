@@ -25,6 +25,16 @@
 
 `nonblocking.c` - uses nonblocking send and receive functions to implement a simple broadcast
 
+## Matrix-matrix multiplication examples
+
+`mpi_matmul.c` - driver program to test the matmul algorithms
+
+`matmul_cannon.c` - implements Cannon's algorithm
+
+`matmul_bb.c` - implements Broadcast-Broadcast algorithm
+
+`matmul_fox.c` - implements Broadcast-Multiply-Roll or Fox's algorithm
+
 ## Instructions for compiling and running the programs
 Here are few important steps that you MUST follow in order to compile and run MPI programs on the ASA Cluster.
 
@@ -37,6 +47,10 @@ Here are few important steps that you MUST follow in order to compile and run MP
 4. Compile the MPI programs from the textbook or the sample program I have provided using mpicc, for example:
 ```
 mpicc -O -Wall -o mpi_vec_sum mpi_vec_sum.c
+```
+For the matrix-matrix multiplication use the Makefile.ASAX provided. You can build the executables using:
+```
+make -f Makefile.ASAX
 ```
 5. Create a job submission script, say, `myscript.sh`, and make sure to enter the following:
 ```

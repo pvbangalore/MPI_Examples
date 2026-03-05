@@ -1,0 +1,40 @@
+#  Simple Makefile for compiling C/C++ and Fortran Programs
+
+CC       = mpicc
+# set the OPENBLAS_DIR to where it is installed on your system
+# some examples are given below.
+# OPENBLAS_DIR = /opt/homebrew/opt/openblas/ 
+OPENBLAS_DIR = /usr/lib/x86_64-linux-gnu/openblas-pthread/
+CFLAGS   = -O3 -Wall -I${OPENBLAS_DIR}/include #-DDEBUG_PRINT # uncomment for debugging
+CXX      = mpic++
+CXXFLAGS = ${CFLAGS} #-DDEBUG_PRINT #uncomment for debugging
+
+OBJS     = mpi_matmul.o
+# include the line below when using OpenBLAS
+LIBS     = -lm -L${OPENBLAS_DIR}/lib -lopenblas
+EXECS    = matmul_cannon matmul_bb matmul_fox 
+
+.SUFFIXES: .o .c .cc
+
+all:    $(EXECS)
+
+matmul_cannon:   mpi_matmul.o matmul_cannon.o
+	$(CC) $(CFLAGS) -o $@ $@.o ${OBJS} ${LIBS}
+
+matmul_bb:   mpi_matmul.o matmul_bb.o
+	$(CC) $(CFLAGS) -o $@ $@.o ${OBJS} ${LIBS}
+
+matmul_fox:   mpi_matmul.o matmul_fox.o
+	$(CC) $(CFLAGS) -o $@ $@.o ${OBJS} ${LIBS}
+
+%.o:   %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+%.o:  %.cc
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	/bin/rm -f *.o *~ $(EXECS)
+
+
+# DO NOT DELETE
